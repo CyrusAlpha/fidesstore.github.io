@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #bb86fc;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .bank-info span {
+            font-weight: bold;
+        }
+
+        .bank-info .label {
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .order-info p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .order-info p span {
+            font-weight: bold;
+            color: #bb86fc;
+        }
+
+        .confirm-payment {
+            margin-top: 30px;
+        }
+
+        .confirm-payment input {
+            display: block;
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .confirm-payment button {
+            background-color: #bb86fc;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .confirm-payment button:hover {
+            background-color: #9f6bcd;
+        }
+
+        #confirm-status {
+            margin-top: 10px;
+            font-size: 14px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="bank-info">
+        <h2>Pembayaran</h2>
+        <ul>
+            <li>
+                <span class="label">Bank:</span> <span id="nama-bank" style="color: #bb86fc;"></span>
+            </li>
+            <li>
+                <span class="label">Nomor Rekening:</span> <span id="nomor-rekening" style="color: #bb86fc;"></span>
+            </li>
+            <li>
+                <span class="label">Nama Pemilik:</span> <span id="nama-pemilik" style="color: #bb86fc;"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="order-info">
+        <p>Item Ordered: <span id="nama-barang"></span></p>
+        <p>Quantity Ordered: <span id="jumlah-barang"></span> unit(s)</p>
+        <p>Total Amount to be Paid: <span style="color: #bb86fc;">Rp</span> <span id="jumlah-bayar"></span></p>
+        <p>Complete Address: <span id="alamat-lengkap"></span></p>
+    </div>
+
+    <p style="color: greenyellow;">Setelah Di Transfer Jangan Lupa Di Screenshoot Sebagai Bukti.</p>
+    <p style="color: greenyellow;">Note: Jika ada total harga barang yang tidak sesuai dengan dengan jumlah barang,maka kami anggap TIDAK SAH.</p>
+
+    <div class="confirm-payment">
+        <h2>Payment Confirmation</h2>
+        <input type="text" id="customer-name" placeholder="Enter Your Name">
+        <button id="confirm-btn">Kirim Bukti Via WhatsApp</button>
+        <p id="confirm-status"></p>
+    </div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const namaBarang = urlParams.get('namaBarang');
+    const jumlahBarang = parseInt(urlParams.get('jumlahBarang'), 10);
+    const totalBelanjaan = parseFloat(urlParams.get('totalBelanjaan'));
+    const alamatLengkap = urlParams.get('alamatLengkap');
+
+    document.getElementById('nama-bank').textContent = 'Bank Central Asia (BCA)';
+    document.getElementById('nomor-rekening').textContent = '8530485677';
+    document.getElementById('nama-pemilik').textContent = 'GERALDO JOVE K';
+    document.getElementById('nama-barang').textContent = namaBarang;
+    document.getElementById('jumlah-barang').textContent = jumlahBarang;
+    document.getElementById('jumlah-bayar').textContent = totalBelanjaan.toLocaleString('id-ID');
+    document.getElementById('alamat-lengkap').textContent = alamatLengkap;
+
+    const confirmBtn = document.getElementById('confirm-btn');
+    const confirmStatus = document.getElementById('confirm-status');
+
+    confirmBtn.addEventListener('click', () => {
+        const customerName = document.getElementById('customer-name').value.trim();
+
+        if (customerName) {
+            const whatsappMessage = `Min,saya sudah melakukan pembayaran.\n\nName: ${customerName}\nItem: ${namaBarang}\nQuantity: ${jumlahBarang}\nTotal Amount: Rp${totalBelanjaan.toLocaleString('id-ID')}\nComplete Address: ${alamatLengkap}\n\nThank you.`;
+            const whatsappUrl = `https://wa.me/6281373072520?text=${encodeURIComponent(whatsappMessage)}`;
+
+            window.open(whatsappUrl, '_blank');
+            confirmStatus.textContent = 'Connecting to WhatsApp...';
+            confirmStatus.style.color = 'green';
+        } else {
+            confirmStatus.textContent = 'Please enter your name!';
+            confirmStatus.style.color = 'red';
+        }
+    });
+
+</script>
+
+</body>
+</html>

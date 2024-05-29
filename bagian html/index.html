@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fides Store</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden; /* Disable horizontal scrollbar */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding-top: 100px; /* Added padding to push content down */
+      padding-bottom: 50px; /* Adjusted padding for more balanced spacing */
+      transition: padding 0.5s; /* Add transition effect for padding */
+      overflow: hidden; /* Hide overflowing content */
+    }
+
+    .banner {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .banner h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .banner p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .button {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      margin: 0 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .button:hover {
+      background-color: #ccc;
+    }
+
+    .button:active {
+      transform: translateY(5px) scale(0.9);
+    }
+
+    .logo {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 100px;
+      height: 100px;
+      background-image: url('foto logo terbaru.jpg');
+      background-size: cover;
+    }
+
+    .video-ad {
+      width: 100%;
+      background-color: #222;
+      padding: 20px 0;
+      text-align: center;
+      transition: padding 0.5s; /* Add transition effect for padding */
+      overflow: hidden; /* Hide overflowing content */
+    }
+
+    .video-ad video {
+      width: 100%; /* Adjusted width */
+      max-width: 600px; /* Maximum width */
+    }
+
+    .footer {
+      background-color: #111;
+      width: 100%;
+      padding: 40px 20px;
+      text-align: center;
+      position: fixed;
+      bottom: -100%; /* Hidden at first */
+      left: 0;
+      transition: bottom 0.5s;
+    }
+
+    .footer.show {
+      bottom: 0; /* Slide in */
+    }
+
+    .footer .footer-content {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer .column {
+      flex: 1;
+      min-width: 150px; /* Adjusted minimum width */
+      margin: 10px;
+    }
+
+    .footer h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .footer p {
+      font-size: 1em;
+      margin-bottom: 15px;
+    }
+
+    .footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .location, .contact {
+      padding: 20px; /* Adjusted padding */
+    }
+
+    .location {
+      background-color: #222;
+    }
+
+    .contact {
+      background-color: #333;
+    }
+
+    /* Animation for scrolling */
+    @keyframes slideLeft {
+      from {
+        transform: translateX(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .slide-left {
+      animation: slideLeft 0.5s ease forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container slide-left"> <!-- Added slide-left class for animation -->
+    <div class="banner">
+      <div class="logo"></div>
+      <h1>Welcome to Fides Store</h1>
+      <p>Explore our latest collections and find your perfect style.</p>
+      <div class="button-group">
+        <a href="home.html" class="button">Product</a>
+        <a href="order.html" class="button">Order</a>
+        <a href="Media Social.html" class="button">Media Social</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-ad">
+    <video controls autoplay>
+      <source src="FIDES kini hadir di.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="footer" id="footer">
+    <div class="footer-content">
+      <div class="column location">
+        <h2>Location</h2>
+        <p>Jalan Batukarang,Sumatera Selatan,Indonesia</p>
+      </div>
+      <div class="column contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:fidesoutfit@gmail.com">fidesoutfit@gmail.com</a></p>
+        <p>Phone: 0813-7307-2520</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var footer = document.getElementById('footer');
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        footer.classList.add('show');
+      } else {
+        footer.classList.remove('show');
+      }
+    });
+
+    // Autoplay the video when the page loads
+    window.addEventListener('DOMContentLoaded', function() {
+      var video = document.querySelector('video');
+      video.play();
+    });
+  </script>
+
+</body>
+</html>
